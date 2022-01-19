@@ -3,7 +3,6 @@ from flask import Flask, request
 
 # create the Flask app
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
 
 
 
