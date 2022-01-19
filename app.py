@@ -1,21 +1,19 @@
 import os
 from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
 
 # create the Flask app
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
 
 
 
 
 #####################################################################
+all_values = {}
 
-# @app.route('/')
-# def home():
-#     return 'Hello!'
+@app.route('/')
+def index():
+    return 'Hi, please enter your request.'
 
 
 # @app.route('/get')
@@ -24,7 +22,9 @@ db = SQLAlchemy(app)
 def set():
     name = request.args.get('name')
     value = request.args.get('value')
-    return name + ' = ' + value
+    all_values[name] = value
+    return name + " = "+ all_values[name]
+
 # @app.route('/unset')
 # @app.route('/numequalto')
 # @app.route('/undo')
@@ -36,13 +36,6 @@ def end():
         raise RuntimeError('Not running werkzeug')
     shutdown_func()
     return 'CLEANED'
-
-
-
-
-
-
-
 
 #####################################################################
 if __name__ == '__main__':
