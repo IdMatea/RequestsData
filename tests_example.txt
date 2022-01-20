@@ -1,0 +1,34 @@
+http://task-2-338804.el.r.appspot.com/set?name=a&value=10
+a = 10
+http://task-2-338804.el.r.appspot.com/set?name=b&value=20
+b = 20
+http://task-2-338804.el.r.appspot.com/get?name=a
+10
+http://task-2-338804.el.r.appspot.com/get?name=b
+20
+ http://task-2-338804.el.r.appspot.com/undo
+b = None
+http://task-2-338804.el.r.appspot.com/get?name=a
+10
+http://task-2-338804.el.r.appspot.com/get?name=b
+None
+http://task-2-338804.el.r.appspot.com/set?name=a&value=40
+
+http://task-2-338804.el.r.appspot.com/get?name=a
+40
+http://task-2-338804.el.r.appspot.com/undo
+a = 10
+http://task-2-338804.el.r.appspot.com/get?name=a
+10
+http://task-2-338804.el.r.appspot.com/undo
+a = None
+http://task-2-338804.el.r.appspot.com/get?name=a
+None
+http://task-2-338804.el.r.appspot.com/undo
+NO COMMANDS
+http://task-2-338804.el.r.appspot.com/redo
+a = 10
+http://task-2-338804.el.r.appspot.com/redo
+a = 40
+http://task-2-338804.el.r.appspot.com/end
+CLEANED

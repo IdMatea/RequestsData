@@ -1,16 +1,17 @@
 from click import command
-from flask import Flask, request
+from flask import Flask, request, render_template
 from collections import Counter
 from commands import ElementSet,ElementUnset,CommandManager 
+import json
+
 
 
 # create the Flask app
 app = Flask(__name__)
 
-
 #####################################################################
-all_values = {}
 manager = CommandManager()
+all_values ={}
 
 @app.route('/')
 def index():
@@ -24,9 +25,13 @@ def get():
 
 @app.route('/set')
 def set():
-    name = request.args.get('name')
-    value = request.args.get('value')
-    result = manager.do(ElementSet(all_values,name,value))
+    with open('DataStore.json','r+') as f:
+        all_values = json.load(f)
+        name = request.args.get('name')
+        value = request.args.get('value')
+        result = manager.do(ElementSet(all_values,name,value))
+        json.dump(all_values, f)
+        f.close()
     return result
 
 
@@ -59,6 +64,25 @@ def end():
         raise RuntimeError('Not running werkzeug')
     shutdown_func()
     return 'CLEANED'
+#     import json
+# obj = json.load(open("new_pandas.json"))
+
+# # Iterate through the objects in the JSON and pop (remove)
+# # the obj once we find it.
+# for i in range(len(obj)):
+#     path = ["000000000036.jpg","000000000049.jpg","000000000077.jpg"]
+
+#     for j in path:
+        
+#         if obj[i]["path"] == j:
+#             obj.pop(i)
+#             break
+
+
+# # Output the updated file with pretty JSON
+# open("updated-file.json", "w").write(
+#     json.dumps(obj)
+# )
 
 
 #####################################################################
