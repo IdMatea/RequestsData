@@ -1,9 +1,8 @@
 from click import command
 from flask import Flask, request
 from collections import Counter
-from commands import * 
-from selenium import webdriver  
-from selenium.webdriver.common.keys import Keys
+from commands import ElementSet,ElementUnset,CommandManager 
+
 
 # create the Flask app
 app = Flask(__name__)
