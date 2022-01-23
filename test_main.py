@@ -1,22 +1,23 @@
+from app import *
+import unittest,requests
 
-def test_get():
-    return 
+class TestResponse(unittest.TestCase):
+    def test_request(self):
+        url = input("Please write your file url:")
+# c:/...
+        try:
+            with open(url, "r") as f:
+                while True:
+                    line1 = [line.rstrip("\n") for line in f]
+                    line2 = [line.rstrip("\n") for line in f]
+                    re=requests.get(line1)
+                    print(re)
+                    print(self.assertEqual(re,line2))
+                    if not line2: break
+            f.close()
+        except IOError:
+            return "Could not read file"
+        return 'ALL_PASSED'
 
-def test_set():
-    return 
-
-
-def test_unset():
-    return 
-
-def test_numequalto():
-    return 
-
-def test_undo():
-    return 
-
-def test_redo():
-    return
-
-def test_end(): 
-    return 
+if __name__ == '__main__':
+    unittest.main()
