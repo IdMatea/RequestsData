@@ -3,6 +3,26 @@ from flask import Flask, request
 from collections import Counter
 #from selenium import webdriver
 from commands import *
+from google.cloud import datastore
+
+# Instantiates a client
+datastore_client = datastore.Client()
+
+# The kind for the new entity
+kind = "Task"
+# The name/ID for the new entity
+name = "save"
+# The Cloud Datastore key for the new entity
+task_key = datastore_client.key(kind, name)
+
+# Prepares the new entity
+task = datastore.Entity(key=task_key)
+task["description"] = "Buy milk"
+
+# Saves the entity
+datastore_client.put(task)
+
+print(f"Saved {task.key.name}: {task['description']}")
 
 
 # create the Flask app
