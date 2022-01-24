@@ -1,8 +1,7 @@
 from webbrowser import Chrome
 from flask import Flask, request
 from collections import Counter
-#from selenium import webdriver
-from commands import *
+from commands import OpenDB,UpdateDB,ElementSet,ElementUnset,do,undo,redo
 from google.cloud import datastore
 
 # Instantiates a client
@@ -66,13 +65,13 @@ def numequalto():
     return str(res.get(value,0))
 
 @app.route('/undo')
-def undo():
+def undoCommand():
     data = OpenDB()
     result = undo(data)
     return result
 
 @app.route('/redo')
-def redo():
+def redoCommand():
     data = OpenDB()
     result = redo(data)
     return result
@@ -80,18 +79,12 @@ def redo():
 @app.route('/end')
 def end(): 
     data = OpenDB()
-    # Iterate through the objects in the JSON and pop (remove) 
     data.clear()
-    # for i in data:
-    #     data.pop(i)
     UpdateDB(data)
     shutdown_func = request.environ.get('werkzeug.server.shutdown')
     if shutdown_func is None:
         raise RuntimeError('Not running werkzeug')
     shutdown_func()
-    # driver = webdriver.Chrome()
-    # driver.get(app.route('/end'))
-    # driver.close
     return 'CLEANED'
 
 
