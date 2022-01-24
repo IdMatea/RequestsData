@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from asyncio.windows_events import NULL
 import os,json
 
 
@@ -61,8 +60,10 @@ class ElementSet(SetOperation):
             self.set_["history"][self.key].pop()
             last_value = self.set_["history"][self.key][-1]
             self.set_["values"][self.key]= last_value
-        except IndexError or last_value == None:
-            self.set_["values"].pop(self.key,'None')
+            if last_value == None:
+                self.set_["values"].pop(self.key,'None')
+        except IndexError:
+            'NO COMMANDS'
         return str(self.key) + " = "+ str(self.set_["values"].get(self.key,'None'))
 
 class ElementUnset(SetOperation):
